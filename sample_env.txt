@@ -1,0 +1,8 @@
+
+PORT=4000
+HOST=localhost
+USER=root
+DATABASE=your_database_name
+PASSWORD=password_of_databse
+SECRET_KEY=abc123
+SALT=1
