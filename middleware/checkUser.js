@@ -67,9 +67,31 @@ const authenticateJWT = (req, res, next) => {
             message: "Unauthorized"
           }); // Unauthorized 
         }
-        console.log(user)
         req.user = user; // Store the user info in the request object
         next();
+      });
+    } else {
+        return res.status(403).json({
+            status: false,
+            message: "Forbidden"
+          }); // Forbidden
+    }
+  };
+
+const authenticate = (req, res, next) => {
+    
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+      const token = authHeader.split(' ')[1]; // Expecting "Bearer TOKEN"
+  
+      jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+        if (err) {
+          return res.status(401).json({
+            status: false,
+            message: "Unauthorized"
+          }); // Unauthorized 
+        }
+        return res.status(200).json({status: true,message: "User is verified"})
       });
     } else {
         return res.status(403).json({
@@ -83,5 +105,6 @@ const authenticateJWT = (req, res, next) => {
 module.exports = {
     checkUserExists,
     loginAuthenticatin,
-    authenticateJWT
+    authenticateJWT,
+    authenticate
 }

@@ -8,7 +8,6 @@ const getTask = async (taskObject) => {
     let  tasks = []
     let query,result
     const {userId, date} = taskObject
-    console.log(userId,date)
     await executeTransaction(async(connection) => {
         try{            
             query = `SELECT 
@@ -22,7 +21,6 @@ const getTask = async (taskObject) => {
                     `
             result = await connection.query(query,[userId,date])
             tasks = result[0]
-            console.log("Result", result[0])
         }catch(error){
             console.log(error.sqlMessage)
         }

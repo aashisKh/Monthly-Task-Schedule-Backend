@@ -13,7 +13,8 @@ const controller = require('../controller/index')
 const {
     checkUserExists,
     loginAuthenticatin,
-    authenticateJWT
+    authenticateJWT,
+    authenticate
 } = require('../middleware/checkUser')
 
 router.post(
@@ -56,6 +57,11 @@ router.post(
     authenticateJWT,
     validateUpdateTask,
     controller.updateTask
+)
+
+router.get(
+    '/authenticate',
+    authenticate,
 )
 
 module.exports = router

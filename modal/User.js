@@ -73,7 +73,7 @@ const userRegistration = async (newUserData) => {
         token = await generateToken({userId: userID,username,email},{expiresIn:'1h'})
       }
     } catch (err) {
-      console.log(err);
+      console.log(err.sqlMessage);
     }
   });
   if (registered) {
