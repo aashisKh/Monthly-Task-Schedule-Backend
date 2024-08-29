@@ -1,0 +1,28 @@
+
+CREATE DATABASE IF NOT EXISTS MonthlyTaskScheduler;
+USE MonthlyTaskScheduler;
+
+CREATE TABLE User (
+    userid INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedat TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Task (
+    taskid INT AUTO_INCREMENT PRIMARY KEY,
+    userid INT,
+    date DATE NOT NULL,
+    taskname VARCHAR(255) NOT NULL,
+    time TIME,
+    am_pm varchar(5) not null,
+    task_status varchar(10) not null,
+    createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedat TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (userid) REFERENCES User(userid)
+);
+
+ALTER table Task MODIFY time varchar(10);
+ALTER table User MODIFY username VARCHAR(255) NOT NULL UNIQUE;
