@@ -2,7 +2,7 @@
 
 
 const { executeTransaction } = require("../database/DbConnection");
-
+const {getConnection} = require('../database/DbConnection')
 
 const getTask = async (taskObject) => {
     let  tasks = []
@@ -20,7 +20,7 @@ const getTask = async (taskObject) => {
                     WHERE userid=? AND date=?
                     `
             result = await connection.query(query,[userId,date])
-            tasks = result[0]
+            tasks = result[0].reverse()
         }catch(error){
             console.log(error.sqlMessage)
         }
@@ -127,10 +127,43 @@ const updateTask = async (taskToUpdate) => {
     }
 }
 
+const getTimelyTask = async(time,date, id) => {
+    const conn = await getConnection()
+    const [hour,minute,amPm] = time.split("-")
+    const times = `${hour}:${minute}`
+    let query,result
+
+    try{
+        query = `
+        SELECT 
+            taskname,
+            time,am_pm
+        FROM task
+        WHERE 
+            date = ? AND 
+            time = ? AND 
+            am_pm = ? AND 
+            task_status = 'new'
+            AND userid = ?
+        `
+        result = await conn.query(query,[date,times,amPm,id])
+        result = result[0]
+    }catch(error){
+        console.log(error)
+    }
+
+    return {
+        status: true,
+        message: 'Timely Task Detected',
+        data: result
+    }
+}
+
 module.exports = {
     getTask,
     addTask,
     updateTask,
-    getTaskById
+    getTaskById,
+    getTimelyTask
 }
 

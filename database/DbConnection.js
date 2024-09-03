@@ -41,7 +41,19 @@ const executeTransaction = async (cb) => {
 
 }
 
+const getConnection = async() => {
+  let connection
+  try{
+    connection = await getDatabasePool().getConnection()
+    connection.release()    
+  }catch(error){
+    connection.rollback()
+  }
+  return connection
+}
+
 module.exports = {
   connectToDatabase,
-  executeTransaction
+  executeTransaction,
+  getConnection
 }

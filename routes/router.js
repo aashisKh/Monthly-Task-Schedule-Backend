@@ -64,4 +64,10 @@ router.get(
     authenticate,
 )
 
+router.get(
+    '/task/gettimelytask',
+    authenticateJWT,
+    controller.getTimelyTask
+)
+
 module.exports = router

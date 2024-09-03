@@ -41,11 +41,19 @@ const updateTask = asyncHandlar(async (req, res) => {
     }
 })
 
+const getTimelyTask = asyncHandlar(async (req, res) => {
+    const {time,date} = req.query
+    const result = await Task.getTimelyTask(time,date,req.user.userid)
+    if(result){
+        res.status(200).json(result)
+    }
+})
 
 
 module.exports = {
     getTask,
     addTask,
     updateTask,
-    getTaskById
+    getTaskById,
+    getTimelyTask
 }

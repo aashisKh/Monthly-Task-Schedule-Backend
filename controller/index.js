@@ -10,7 +10,8 @@ const {
     getTask,
     addTask,
     updateTask,
-    getTaskById
+    getTaskById,
+    getTimelyTask
 } = require('./task')
 
 module.exports = {
@@ -19,5 +20,6 @@ module.exports = {
     getTask,
     addTask,
     updateTask,
-    getTaskById   
+    getTaskById,
+    getTimelyTask   
 }

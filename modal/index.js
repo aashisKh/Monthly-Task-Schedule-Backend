@@ -12,7 +12,8 @@ const {
     getTask,
     addTask,
     updateTask,
-    getTaskById
+    getTaskById,
+    getTimelyTask
 } = require('./Task')
 
 
@@ -25,5 +26,6 @@ module.exports = {
     getTask,
     addTask,
     updateTask,
-    getTaskById
+    getTaskById,
+    getTimelyTask
 }
